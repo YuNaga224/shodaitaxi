@@ -1,0 +1,27 @@
+$body-bg:#F2F2F2;
+$body-color:#6b7280;
+$font-size-base:0.9rem;
+$input-btn-padding-x:1.3rem;
+$input-btn-padding-x-lg:1.2rem;
+$primary:#7E0015;
+$danger:#ff4136;
+$font-family-base: 'Zen Kaku Gothic New', sans-serif;
+@import "bootstrap/bootstrap.scss";
+
+body{
+  margin:0;
+}
+
+.login-form {
+    width: 300px;
+}
+
+.min-w-100 {
+    min-width:100px;
+}
+
+.mymessage{
+  background-color: #ff4136;
+  color: white;
+}
+
