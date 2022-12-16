@@ -136,7 +136,6 @@ function index($requested_carpools,$carpool_list)
                 </div>
                 <div class="d-flex align-items-center justify-content-center">
                 <input type="submit" value="検索" class="btn btn-primary shadow-sm">
-                <button class="btn btn-info shadow-sm px-5" onclick="reload()">更新する</button>
             </div>
         </form>
     </ul> 
