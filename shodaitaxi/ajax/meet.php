@@ -37,7 +37,7 @@ Auth::requireLogin();
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="<?php echo BASE_CSS_PATH ?>style.css">
-    <title>Document</title>
+    <title>商大タクシー</title>
 </head>
 <body>
 <div id="container">
@@ -49,27 +49,25 @@ Auth::requireLogin();
             </a>
             <div class="col-auto">
                 <form action="<?php the_url('carpool/done'); ?>" method="POST">
-                    <input type="submit"  class="btn btn-danger col-auto" value="全員揃った">
+                    <input type="submit"  class="btn btn-danger col-auto" value="タクシーに乗りました">
                 </form>
             </div>
         </nav>
     </header>
     <div class="container">
         <div class="d-flex justify-content-center align-items-center">
-            <h1 class="h6">メンバーが揃いました！</h1>
-            <h2 class="h6">集合場所を決めてください</h2>
+            <h1 class="h6">チャットで</h1>
+            <h2 class="h6">集合場所を決めてください！</h2>
         </div>
         <div id="all_show_result" class="mt-5"></div>
         </div>
         <div class="add_chat" class="row d-flex align-items-center">
             <div class="d-flex justify-content-center">
-                <input type="text" id="body" class="col-10 form-control" maxlength="50" required>
+                <input type="text" id="body" class="col-10 form-control chat-body" maxlength="50" required>
             </div>
             <div id="add_result"></div>
             <div class="d-flex justify-content-center text-align-center">
-            
-
-                <button id="ajax_add" class="btn btn-info mb-3">送信</button>  
+                <button id="ajax_add" class="btn btn-info mb-3 send-btn">送信</button>  
             </div>
         </div>
     </div>
