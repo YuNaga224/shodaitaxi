@@ -19,9 +19,11 @@ function getAllData(){
                 }else if(value.nickname === '[辞退お知らせ]'){
                   $('#all_show_result').append('<div class="">' + '<p class="w-80 bg-light text-black mb-3 p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
                   num -= 1;
+                }else if(value.nickname === '[作成お知らせ]'){
+                  $('#all_show_result').append('<div class="">' + '<p class="w-80 bg-light text-black mb-3 p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
                 }else{
+                  
                   $('#all_show_result').append('<div class="">' + value.nickname + '<p class="w-80 bg-primary text-white mb-3 p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
-  
                 }
 
               }
