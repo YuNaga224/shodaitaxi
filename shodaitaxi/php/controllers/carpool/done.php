@@ -22,9 +22,10 @@ function post() {
         $user->user_num = 0;
         UserQuery::clearUserNum($user);
     }else{
-        UserQuery::clearUserNum($user);
         CarpoolQuery::clearUser($carpool,$user);
+        UserQuery::clearUserNum($user);
         $user->user_num = 0;
+        
     }
     CarpoolModel::clearSession();
     $user->relate_carpool = "none";

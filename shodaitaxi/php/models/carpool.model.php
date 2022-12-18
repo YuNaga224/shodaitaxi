@@ -36,10 +36,12 @@ class CarpoolModel extends AbstractModel {
             $carpool = CarpoolModel::getSession();
             if($user->user_num === 1) {
                 CarpoolQuery::deleteRecord($carpool);
+                UserQuery::clearUserNum($user);
+                $user->user_num = 0;
             }else{
                 CarpoolQuery::clearUser($carpool,$user);
                 UserQuery::clearUserNum($user);
-                $user->user_num = "0";
+                $user->user_num = 0;
             }
             CarpoolModel::clearSession();
             $user->relate_carpool = "none";
@@ -48,7 +50,6 @@ class CarpoolModel extends AbstractModel {
             redirect(GO_HOME);
         }elseif(!($carpool->user_4 === "EHG23hNRVe")){
             Msg::push(Msg::INFO,'メンバーが全員揃いました！');
-            redirect('carpool/meet');
         }else {
             return;
         }

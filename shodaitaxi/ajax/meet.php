@@ -1,8 +1,8 @@
 <?php 
 namespace view\carpool\meet;
-require_once '/var/www/html/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
+require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
 
-require_once '/var/www/html/shodaitaxiProject/shodaitaxi/config.php';
+require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/config.php';
 //Model
 require_once SOURCE_BASE . 'models/abstract.model.php';
 require_once SOURCE_BASE . 'models/user.model.php';
@@ -15,9 +15,11 @@ require_once SOURCE_BASE . 'libs/helper.php';
 require_once SOURCE_BASE . 'libs/message.php';
 require_once SOURCE_BASE . 'libs/auth.php';
 
+use db\CarpoolQuery;
 use model\CarpoolModel;
 use model\UserModel;
 use lib\Auth;
+use lib\Msg;
 session_start();
 $user = UserModel::getSession();
 $carpool = CarpoolModel::getSession();
@@ -42,22 +44,22 @@ Auth::requireLogin();
 <body>
 <div id="container">
     <header class="sticky-top bg-white mt-0">
-        <nav class="row align-items-center py-2 p-1">
-            <a href="#" class="col d-flex align-items-center mb-md-0">
+        <nav class="d-flex justify-content-around align-items-center py-2 p-1">
+            <a href="#" class="d-flex align-items-center mb-md-0">
                 <img width="35" class="mr-2" src="<?php echo BASE_IMAGE_PATH;?>shodaitaxi_logo.png" alt="商大タクシーロゴ">
                 <span class="h5 font-weight-bold mb-0">商大TAXI</span>
             </a>
-            <div class="col-auto">
-                <form action="<?php the_url('carpool/done'); ?>" method="POST">
-                    <input type="submit"  class="btn btn-danger col-auto" value="全員揃った">
-                </form>
-            </div>
+            
+            <form class="" action="<?php the_url('carpool/done'); ?>" method="POST">
+                <input type="submit"  class="btn btn-danger" value="タクシーに乗りました">
+            </form>
+            
+            <a href="<?php the_url('carpool/participate?carpool_id=' . $carpool->id); ?>" class="btn btn-info">グループ管理</a>
         </nav>
     </header>
     <div class="container">
         <div class="d-flex justify-content-center align-items-center">
-            <h1 class="h6">メンバーが揃いました！</h1>
-            <h2 class="h6">集合場所を決めてください</h2>
+            <h1 class="h6" id="member-infomation">現在の参加者数は1/4人です</h1>
         </div>
         <div id="all_show_result" class="mt-5"></div>
         </div>
