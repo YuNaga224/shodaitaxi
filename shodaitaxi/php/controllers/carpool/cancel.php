@@ -2,6 +2,7 @@
 namespace controller\carpool\cancel;
 
 use db\CarpoolQuery;
+use db\ChatQuery;
 use db\UserQuery;
 use lib\Auth;
 use model\CarpoolModel;
@@ -16,16 +17,12 @@ function post() {
     $user = UserModel::getSession();
     $carpool = CarpoolModel::getSession();
 
-    if($user->user_num === 1) {
-        CarpoolQuery::deleteRecord($carpool);
-        $user->user_num = 0;
-        UserQuery::clearUserNum($user);
 
-    }else{
-        CarpoolQuery::clearUser($carpool,$user);
-        UserQuery::clearUserNum($user);
-        $user->user_num = 0;
-    }
+    ChatQuery::infoLeave($carpool,$user);
+    CarpoolQuery::clearUser($carpool,$user);
+    UserQuery::clearUserNum($user);
+    $user->user_num = 0;
+
     CarpoolModel::clearSession();
     $user->relate_carpool = "none";
     UserQuery::clearRelate($user);

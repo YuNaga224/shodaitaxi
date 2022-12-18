@@ -2,6 +2,7 @@
 namespace controller\carpool\participate;
 
 use db\CarpoolQuery;
+use db\ChatQuery;
 use Throwable;
 use db\UserQuery;
 use lib\Auth;
@@ -52,11 +53,11 @@ function post() {
     }
 
     if($is_success1 && $is_success2) {
-        Msg::push(Msg::INFO,'グループに参加しました！');
         UserModel::setSession($user);
         $fetchedCarpool = CarpoolQuery::fetchById($fetchedCarpool);
         CarpoolModel::setSession($fetchedCarpool);
-        redirect(GO_REFERER);
+        ChatQuery::infoJoin($fetchedCarpool,$user);
+        redirect("ajax/meet.php?carpool_id=" . $fetchedCarpool->id);
     }else {
         Msg::push(Msg::ERROR,'グループへの参加に失敗しました。');
         redirect(GO_REFERER);

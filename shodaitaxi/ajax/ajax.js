@@ -1,4 +1,5 @@
 function getAllData(){
+  num = 1;
   $.ajax({
       // 通信先ファイル名
       url: "ajax-chat-log.php",
@@ -11,10 +12,22 @@ function getAllData(){
           $('#all_show_result').html('<div class="d-none"' + data[0]['body'] + "</div>");
           $.each(data, function(key, value){
               // #all_show_result内にappendで追記していく
-              $('#all_show_result').append('<div class="">' + value.nickname + '<p class="w-80 bg-primary text-white mb-3 p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
-            
-          });
+              if(value.body != ""){
+                if(value.nickname === '[参加お知らせ]'){
+                  $('#all_show_result').append('<div class="">' + '<p class="w-80 bg-light text-black mb-3 p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
+                  num += 1;
+                }else if(value.nickname === '[辞退お知らせ]'){
+                  $('#all_show_result').append('<div class="">' + '<p class="w-80 bg-light text-black mb-3 p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
+                  num -= 1;
+                }else{
+                  $('#all_show_result').append('<div class="">' + value.nickname + '<p class="w-80 bg-primary text-white mb-3 p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
+  
+                }
 
+              }
+  
+          });
+          $('#member-infomation').html('現在の参加者数は' + num + '/4' + '人です');
       },
       function(){
 

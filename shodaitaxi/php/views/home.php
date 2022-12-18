@@ -15,6 +15,7 @@ function index($requested_carpools,$carpool_list)
     if(Auth::isLogin()) {
         $user = UserModel::getSession();
         $carpool = CarpoolModel::getSession();
+     
         if(!($user->relate_carpool === 'none')) {
             if(empty(CarpoolQuery::fetchById($carpool))){
                 $participate_flg = false;

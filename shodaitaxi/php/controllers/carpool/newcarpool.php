@@ -39,7 +39,7 @@ function post() {
         UserModel::setSession($user);
         $carpool = CarpoolQuery::fetchByUserId($user);
         CarpoolModel::setSession($carpool);
-        redirect('carpool/participate?carpool_id=' . $carpool->id);
+        redirect('ajax/meet.php?carpool_id=' . $carpool->id);
     }else {
         Msg::push(Msg::ERROR,'グループの作成に失敗しました');
         redirect(GO_REFERER);

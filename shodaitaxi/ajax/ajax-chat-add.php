@@ -1,7 +1,7 @@
 <?php
-require_once '/var/www/html/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
+require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
 
-require_once '/var/www/html/shodaitaxiProject/shodaitaxi/config.php';
+require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/config.php';
 
 require_once SOURCE_BASE . 'libs/helper.php';
 //Model
@@ -24,7 +24,7 @@ $carpool = CarpoolModel::getSession();
 
 // データベース接続
 // $host = localhostで動かなければipアドレスを記載
-$host = 'aws-and-infra-web.ctatrguvwcnx.ap-northeast-1.rds.amazonaws.com';
+$host = 'localhost';
 // データベース名
 $dbname = 'shodaitaxi';
 // ユーザー名
@@ -34,7 +34,7 @@ $dbpass = 'shodai1121';
 
 // データベース接続クラスPDOのインスタンス$dbhを作成する
 try {
-    $dbh = new PDO("mysql:host={$host};port=3306;dbname={$dbname};charset=utf8mb4", $dbuser, $dbpass);
+    $dbh = new PDO("mysql:host={$host};port=8889;dbname={$dbname};charset=utf8mb4", $dbuser, $dbpass);
 // PDOExceptionクラスのインスタンス$eからエラーメッセージを取得
 } catch (PDOException $e) {
     // 接続できなかったらvar_dumpの後に処理を終了する

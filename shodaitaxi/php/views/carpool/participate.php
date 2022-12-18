@@ -99,8 +99,8 @@ function index($fetchedCarpool)
                     </form>
                 <?php endif; ?>
                     <button class="btn btn-info shadow-sm px-5" onclick="reload()">更新する</button>
-                    
-            </div>
+                </div>
+                <a href="<?php the_url('ajax/meet.php?carpool_id=' . $carpool->id); ?>" class="d-flex justify-content-center mt-3">チャットへ</a>
             <script>
                 function reload(){
                     location.reload();

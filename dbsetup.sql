@@ -6,7 +6,7 @@ grant all on shodaitaxi.* to 'shodaitaxi_dev'@'localhost';
 create table users(
     id varchar(20) primary key,
     pwd varchar(60) not null,
-    nickname varchar(10) not null,
+    nickname varchar(8) not null,
     relate_carpool varchar(20) not null default 'none',
     user_num int(1) not null default 0
 );
@@ -19,13 +19,12 @@ create table carpool(
     user_3 varchar(10) not null default 'EHG23hNRVe',
     user_4 varchar(10) not null default 'EHG23hNRVe',
     selected_date varchar(50) not null,
-    release_flg int(1) not null default 0,
     selected_jr varchar(50) not null
 );
 
 create table chat(
     id int(10) primary key auto_increment,
     carpool_id int(10) not null,
-    nickname varchar(10) not null,
+    nickname varchar(8) not null,
     body varchar(50) not null
 );
