@@ -1,6 +1,7 @@
 <?php 
 namespace controller\carpool\newcarpool;
 use db\CarpoolQuery;
+use db\ChatQuery;
 use db\UserQuery;
 use lib\Auth;
 use model\CarpoolModel;
@@ -35,10 +36,11 @@ function post() {
     }
 
     if($is_success1 && $is_success2) {
-        Msg::push(Msg::INFO,'グループの作成に成功しました');
+        
         UserModel::setSession($user);
         $carpool = CarpoolQuery::fetchByUserId($user);
         CarpoolModel::setSession($carpool);
+        ChatQuery::infoCreate($carpool,$user);
         redirect('ajax/meet.php?carpool_id=' . $carpool->id);
     }else {
         Msg::push(Msg::ERROR,'グループの作成に失敗しました');

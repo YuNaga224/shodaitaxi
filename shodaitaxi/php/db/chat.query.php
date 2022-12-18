@@ -13,6 +13,18 @@ class ChatQuery{
 
     }
 
+    public static function infoCreate($carpool,$user){
+        $db = new DataSource;
+
+        $sql = 'insert into chat(carpool_id,nickname,body) values (:carpool,:info,:body)';
+
+        return $db->execute($sql,[
+            ':carpool' => $carpool->id,
+            ':info' => "[作成お知らせ]",
+            ':body' => $user->nickname . "さんが" . $carpool->selected_date . $carpool->selected_jr . "のグループを作成しました"
+        ]);
+    }
+
     public static function infoJoin($carpool,$user){
         $db = new DataSource;
 

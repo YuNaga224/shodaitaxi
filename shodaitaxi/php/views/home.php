@@ -67,7 +67,7 @@ function index($requested_carpools,$carpool_list)
         <?php endif; ?>
         <?php if($participate_flg): ?>
             <div class="d-flex justify-content-center mb-3">
-                <a href="<?php the_url('carpool/participate?carpool_id=' . $carpool->id); ?>" class="btn btn-info">参加中のグループへ移動</a>
+                <a href="<?php the_url("ajax/meet.php?carpool_id=" . $carpool->id); ?>" class="btn btn-info">参加中のグループへ移動</a>
             </div>
             <div class="text-center mb-4">
                 <img src="<?php echo BASE_IMAGE_PATH;?>shodaitaxi_logo.png" width="100" alt="商大タクシーロゴ">

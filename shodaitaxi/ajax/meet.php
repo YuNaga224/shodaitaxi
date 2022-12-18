@@ -1,8 +1,8 @@
 <?php 
 namespace view\carpool\meet;
-require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
+require_once '/var/www/html/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
 
-require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/config.php';
+require_once '/var/www/html/shodaitaxiProject/shodaitaxi/config.php';
 //Model
 require_once SOURCE_BASE . 'models/abstract.model.php';
 require_once SOURCE_BASE . 'models/user.model.php';
@@ -39,7 +39,7 @@ Auth::requireLogin();
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="<?php echo BASE_CSS_PATH ?>style.css">
-    <title>Document</title>
+    <title>商大タクシー</title>
 </head>
 <body>
 <div id="container">

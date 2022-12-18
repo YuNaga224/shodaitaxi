@@ -17,14 +17,16 @@ function get() {
 
     $fetchedCarpool = CarpoolQuery::fetchById($carpool);
     
-    CarpoolModel::isMembersReady($fetchedCarpool);
-
+    
     if(empty($fetchedCarpool)) {
         Msg::push(Msg::ERROR,'申し訳ございません。ご指定のグループはみつかりませんでした。');
-        redirect('404');
+        redirect(GO_HOME);
+    }else{
+        
+        CarpoolModel::isMembersReady($fetchedCarpool);
+        \view\carpool\participate\index($fetchedCarpool);
     }
 
-    \view\carpool\participate\index($fetchedCarpool);
 }
 
 function post() {
