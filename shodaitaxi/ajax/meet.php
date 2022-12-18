@@ -39,7 +39,7 @@ Auth::requireLogin();
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="<?php echo BASE_CSS_PATH ?>style.css">
-    <title>Document</title>
+    <title>商大タクシー</title>
 </head>
 <body>
 <div id="container">
@@ -49,29 +49,34 @@ Auth::requireLogin();
                 <img width="35" class="mr-2" src="<?php echo BASE_IMAGE_PATH;?>shodaitaxi_logo.png" alt="商大タクシーロゴ">
                 <span class="h5 font-weight-bold mb-0">商大TAXI</span>
             </a>
-            
+
+           
             <form class="" action="<?php the_url('carpool/done'); ?>" method="POST">
                 <input type="submit"  class="btn btn-danger" value="タクシーに乗りました">
             </form>
             
             <a href="<?php the_url('carpool/participate?carpool_id=' . $carpool->id); ?>" class="btn btn-info">グループ管理</a>
+
+
         </nav>
     </header>
     <div class="container">
         <div class="d-flex justify-content-center align-items-center">
+
             <h1 class="h6" id="member-infomation">現在の参加者数は1/4人です</h1>
+
+
+
         </div>
         <div id="all_show_result" class="mt-5"></div>
         </div>
         <div class="add_chat" class="row d-flex align-items-center">
             <div class="d-flex justify-content-center">
-                <input type="text" id="body" class="col-10 form-control" maxlength="50" required>
+                <input type="text" id="body" class="col-10 form-control chat-body" maxlength="50" required>
             </div>
             <div id="add_result"></div>
             <div class="d-flex justify-content-center text-align-center">
-            
-
-                <button id="ajax_add" class="btn btn-info mb-3">送信</button>  
+                <button id="ajax_add" class="btn btn-info mb-3 send-btn">送信</button>  
             </div>
         </div>
     </div>
