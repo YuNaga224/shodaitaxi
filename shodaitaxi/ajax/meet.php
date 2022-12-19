@@ -45,12 +45,7 @@ Auth::requireLogin();
 <div id="container">
     <header class="sticky-top bg-white mt-0">
         <nav class="d-flex justify-content-around align-items-center py-2 p-1">
-            <a href="#" class="d-flex align-items-center mb-md-0">
-                <img width="35" class="mr-2" src="<?php echo BASE_IMAGE_PATH;?>shodaitaxi_logo.png" alt="商大タクシーロゴ">
-                <span class="h5 font-weight-bold mb-0">商大TAXI</span>
-            </a>
 
-           
             <form class="" action="<?php the_url('carpool/done'); ?>" method="POST">
                 <input type="submit"  class="btn btn-danger" value="タクシーに乗りました">
             </form>
