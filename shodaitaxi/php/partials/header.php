@@ -14,6 +14,7 @@ function header() {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <link rel="icon" href="<?php echo BASE_IMAGE_PATH; ?>shodaitaxi_logo.png" sizes="16x16">
         <link rel="apple-touch-icon" href="<?php echo BASE_IMAGE_PATH; ?>shodaitaxi_logo.png" sizes="180x180">
         <title>商大タクシー</title>
@@ -21,9 +22,6 @@ function header() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="<?php echo BASE_CSS_PATH?>style.css">
-        
-        <!-- ファイル -->
-        <script type="text/javascript" src="<?php echo BASE_JS_PATH ?>form-validate.js"></script>
       
 
     </head>

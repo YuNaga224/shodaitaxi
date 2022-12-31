@@ -1,8 +1,8 @@
 <?php 
 namespace view\carpool\meet;
-require_once '/var/www/html/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
+require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
 
-require_once '/var/www/html/shodaitaxiProject/shodaitaxi/config.php';
+require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/config.php';
 //Model
 require_once SOURCE_BASE . 'models/abstract.model.php';
 require_once SOURCE_BASE . 'models/user.model.php';
@@ -15,11 +15,11 @@ require_once SOURCE_BASE . 'libs/helper.php';
 require_once SOURCE_BASE . 'libs/message.php';
 require_once SOURCE_BASE . 'libs/auth.php';
 
-use db\CarpoolQuery;
+
 use model\CarpoolModel;
 use model\UserModel;
 use lib\Auth;
-use lib\Msg;
+
 session_start();
 $user = UserModel::getSession();
 $carpool = CarpoolModel::getSession();
@@ -57,22 +57,18 @@ Auth::requireLogin();
     </header>
     <div class="container">
         <div class="d-flex justify-content-center align-items-center">
-
             <h1 class="h6" id="member-infomation">現在の参加者数は1/4人です</h1>
-
-
 
         </div>
         <div id="all_show_result" class="mt-5"></div>
-        </div>
-        <div class="add_chat" class="row d-flex align-items-center">
-            <div class="d-flex justify-content-center">
-                <input type="text" id="body" class="col-10 form-control chat-body" maxlength="50" required>
-            </div>
-            <div id="add_result"></div>
-            <div class="d-flex justify-content-center text-align-center">
-                <button id="ajax_add" class="btn btn-info mb-3 send-btn">送信</button>  
-            </div>
+
+        <div class="add_chat" class="row text-align-center">
+            <form class="form-inline">
+                <input type="text" id="body" class="col-9 form-control chat-body" maxlength="50" required>      
+
+                <button id="ajax_add" class="col-3 btn btn-info send-btn font-small">送信</button>  
+        
+            </form>
         </div>
     </div>
 

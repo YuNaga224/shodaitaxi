@@ -1,7 +1,7 @@
 <?php
-require_once '/var/www/html/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
+require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
 
-require_once '/var/www/html/shodaitaxiProject/shodaitaxi/config.php';
+require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/config.php';
 
 require_once SOURCE_BASE . 'libs/helper.php';
 //Model
@@ -9,8 +9,7 @@ require_once SOURCE_BASE . 'models/abstract.model.php';
 require_once SOURCE_BASE . 'models/user.model.php';
 require_once SOURCE_BASE . 'models/carpool.model.php';
 
-
-
+use db\DataSource;
 use model\CarpoolModel;
 use model\UserModel;
 
@@ -21,20 +20,9 @@ $body = escape($body);
 $user = UserModel::getSession();
 $carpool = CarpoolModel::getSession();
 
-
-// データベース接続
-// $host = localhostで動かなければipアドレスを記載
-$host = 'aws-and-infra-web.ctatrguvwcnx.ap-northeast-1.rds.amazonaws.com';
-// データベース名
-$dbname = 'shodaitaxi';
-// ユーザー名
-$dbuser = 'shodaitaxi_dev';
-// パスワード
-$dbpass = 'shodai1121';
-
-// データベース接続クラスPDOのインスタンス$dbhを作成する
 try {
-    $dbh = new PDO("mysql:host={$host};port=3306;dbname={$dbname};charset=utf8mb4", $dbuser, $dbpass);
+
+    $db = new DataSource;
 // PDOExceptionクラスのインスタンス$eからエラーメッセージを取得
 } catch (PDOException $e) {
     // 接続できなかったらvar_dumpの後に処理を終了する
@@ -42,35 +30,26 @@ try {
     exit;
 }
 
-// データ追加用SQL
-// 値はバインドさせる
-$sql = "INSERT INTO chat(carpool_id, nickname, body) VALUES(?, ?, ?)";
-// SQLをセット
-$stmt = $dbh->prepare($sql);
-// SQLを実行
-$stmt->execute(array($carpool->id, $user->nickname, $body));
 
-// 先ほど追加したデータを取得
-// idはlastInsertId()で取得できる
-$last_id = $dbh->lastInsertId();
-// データ追加用SQL
-// 値はバインドさせる
-$sql = "SELECT id, user_id, body FROM chat WHERE id = ?";
-// SQLをセット
-$stmt = ($dbh->prepare($sql));
-// SQLを実行
-$stmt->execute(array($last_id));
+$sql = "insert into chat(carpool_id, nickname, body) values(:carpool_id, :nickname, :body)";
+$db->execute($sql,[
+    ':carpool_id' => $carpool->id,
+    ':nickname' => $user->nickname,
+    ':body' => $body
+]);
 
-// あらかじめ配列$productListを作成する
-// 受け取ったデータを配列に代入する
-// 最終的にhtmlへ渡される
-$productList = array();
+$last_id = $db->getLastInsertId();
 
-// fetchメソッドでSQLの結果を取得
-// 定数をPDO::FETCH_ASSOC:に指定すると連想配列で結果を取得できる
-// 取得したデータを$productListへ代入する
+$sql = "select id, user_id, body from chat where id = :id";
+$stmt = $db->select($sql, [
+    ':id' => $last_id
+],'asc');
+
+
+$chatList = array();
+
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-    $productList[] = array(
+    $chatList[] = array(
         'id'    => $row['id'],
         'nickname'  => $row['nickname'],
         'body' => $row['body']
@@ -79,5 +58,5 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
 // ヘッダーを指定することによりjsonの動作を安定させる
 header('Content-type: application/json');
-// htmlへ渡す配列$productListをjsonに変換する
-echo json_encode($productList);
+// htmlへ渡す配列$chatListをjsonに変換する
+echo json_encode($chatList);
