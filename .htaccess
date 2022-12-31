@@ -3,7 +3,3 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule / /index.php
-<<<<<<< HEAD
-=======
-
->>>>>>> 1b5e3658347eed4515597fe193feaf170f80cd83
