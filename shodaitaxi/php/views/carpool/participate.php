@@ -103,7 +103,7 @@ function index($fetchedCarpool)
                 </div>
                 
                 <div class="d-flex justify-content-center mt-3">
-                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="<?php echo '🔶募集中！！🔶'."\n".$carpool->selected_date.$carpool->selected_jr.'のグループです'."\n".'現在参加者数：'. $participate_count .'/4人'."\n".'🚕💨💨💨💨💨'."\n".'下のリンクから参加してください🔽';?>" data-via="shodaitaxi" data-hashtags="商大タクシー" data-related="" data-lang="ja" data-show-count="false">ツイートする</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="<?php echo '🔶募集中！！🔶'."\n".$carpool->selected_date.$carpool->selected_jr.'のグループです'."\n".'現在参加者数：'. $participate_count .'/4人'."\n".'🚕💨💨💨💨💨'."\n".'下のリンクから参加してください🔽';?>" data-via="shodaitaxi" data-hashtags="商大タクシー" data-related="" data-lang="ja" data-show-count="false">ツイート</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
                 </div>
         <?php endif; ?>
