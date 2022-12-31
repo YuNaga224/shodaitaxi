@@ -16,38 +16,26 @@ use model\CarpoolModel;
 session_start();
 $carpool = CarpoolModel::getSession();
 
-$host = 'localhost';
-// データベース名
-$dbname = 'shodaitaxi';
-// ユーザー名
-$dbuser = 'shodaitaxi_dev';
-// パスワード
-$dbpass = 'shodai1121';
 
 try {
-    $dbh = new PDO("mysql:host={$host};port=8889;dbname={$dbname};charset=utf8mb4", $dbuser, $dbpass);
+    $db = new DataSource;
 } catch (PDOException $e) {
     // 接続できなかったらvar_dumpの後に処理を終了する
     var_dump($e->getMessage());
     exit;
 }
 
-// データ取得用SQL
-// 値はバインドさせる
-$sql = "SELECT id, nickname, body FROM chat where carpool_id = ?";
-// SQLをセット
-$stmt = $dbh->prepare($sql);
-// SQLを実行
-$stmt->execute(array($carpool->id));
 
-// あらかじめ配列$productListを作成する
-// 受け取ったデータを配列に代入する
-// 最終的にhtmlへ渡される
+$sql = "SELECT id, nickname, body FROM chat where carpool_id = :carpool_id";
+
+$stmt = $db->select($sql,[
+    ":carpool_id" => $carpool->id
+],'asc');
+
+
 $productList = array();
 
-// fetchメソッドでSQLの結果を取得
-// 定数をPDO::FETCH_ASSOC:に指定すると連想配列で結果を取得できる
-// 取得したデータを$productListへ代入する
+
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     $productList[] = array(
         'id'    => $row['id'],

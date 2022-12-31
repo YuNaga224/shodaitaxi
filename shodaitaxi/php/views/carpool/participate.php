@@ -8,6 +8,7 @@ use model\UserModel;
 function index($fetchedCarpool)
 {
     // var_dump($fetchedCarpool);
+    $participate_count = 1;
     $user = UserModel::getSession();
     $carpool = CarpoolModel::getSession();
     // var_dump($user);
@@ -31,7 +32,7 @@ function index($fetchedCarpool)
                     </div>
                 </div>
         </div>
-            <?php else : ?>
+            <?php else : $participate_count = 2;?>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title h6 md-h5"><?php echo $fetchedCarpool->user_2 ?></h4>
@@ -47,7 +48,7 @@ function index($fetchedCarpool)
                     </div>
                 </div>
         </div>
-            <?php else : ?>
+            <?php else : $participate_count = 3;?>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title h6 md-h5"><?php echo $fetchedCarpool->user_3 ?></h4>
@@ -98,14 +99,13 @@ function index($fetchedCarpool)
                         <input type="submit" class="btn btn-danger" value="グループを抜ける">
                     </form>
                 <?php endif; ?>
-                    <button class="btn btn-info shadow-sm px-5" onclick="reload()">更新する</button>
+                    <a href="<?php the_url('ajax/meet.php?carpool_id=' . $carpool->id); ?>" class="btn btn-info shadow-sm px-5">チャットへ</a>
                 </div>
-                <a href="<?php the_url('ajax/meet.php?carpool_id=' . $carpool->id); ?>" class="d-flex justify-content-center mt-3">チャットへ</a>
-            <script>
-                function reload(){
-                    location.reload();
-                }
-            </script>
+                
+                <div class="d-flex justify-content-center mt-3">
+                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="<?php echo '🔶募集中！！🔶'."\n".$carpool->selected_date.$carpool->selected_jr.'のグループです'."\n".'現在参加者数：'. $participate_count .'/4人'."\n".'🚕💨💨💨💨💨'."\n".'下のリンクから参加してください🔽';?>" data-via="shodaitaxi" data-hashtags="商大タクシー" data-related="" data-lang="ja" data-show-count="false">ツイート</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+                </div>
         <?php endif; ?>
         </div>
             
