@@ -12,10 +12,12 @@ require_once SOURCE_BASE . 'models/carpool.model.php';
 use db\DataSource;
 use model\CarpoolModel;
 use model\UserModel;
+use lib\Msg;
 
 session_start();
 // POSTメソッドでリクエストした値を取得
 $body = $_POST['body'];
+//XSS対策
 $body = escape($body);
 $user = UserModel::getSession();
 $carpool = CarpoolModel::getSession();
@@ -25,22 +27,23 @@ try {
     $db = new DataSource;
 // PDOExceptionクラスのインスタンス$eからエラーメッセージを取得
 } catch (PDOException $e) {
-    // 接続できなかったらvar_dumpの後に処理を終了する
-    var_dump($e->getMessage());
+    Msg::push(Msg::DEBUG, $e->getMessage());
     exit;
 }
 
+//chatテーブルにレコードを挿入
+$sql = "insert into chat(carpool_id, nickname, body, user_id) values(:carpool_id, :nickname, :body, :user_id)";
 
-$sql = "insert into chat(carpool_id, nickname, body) values(:carpool_id, :nickname, :body)";
 $db->execute($sql,[
     ':carpool_id' => $carpool->id,
+    ':user_id' => $user->id,
     ':nickname' => $user->nickname,
     ':body' => $body
 ]);
 
 $last_id = $db->getLastInsertId();
 
-$sql = "select id, user_id, body from chat where id = :id";
+$sql = "select id, user_id, nickname, body from chat where id = :id";
 $stmt = $db->select($sql, [
     ':id' => $last_id
 ],'asc');
@@ -51,10 +54,13 @@ $chatList = array();
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     $chatList[] = array(
         'id'    => $row['id'],
-        'nickname'  => $row['nickname'],
-        'body' => $row['body']
+        'user_id'  => $row['user_id'],
+        'nickname' => $row['nickname'],
+        'body' => $row['body'],
+        'current_user' => $user->id
     );
 }
+
 
 // ヘッダーを指定することによりjsonの動作を安定させる
 header('Content-type: application/json');

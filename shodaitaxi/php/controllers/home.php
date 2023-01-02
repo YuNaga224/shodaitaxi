@@ -7,10 +7,14 @@ use model\CarpoolModel;
 use model\UserModel;
 
 function get() {
+    //carpoolを全件取得
     $carpools = CarpoolQuery::fetchRecruitCarpools();
+    //検索欄で選択されたcarpoolを格納するlist
     $requested_carpools = [];
+    //現在時刻以降のcarpoolを格納するlist
     $carpool_list = [];
     foreach($carpools as $carpool) {
+        
         if(date('m月d日') > date($carpool->selected_date)){
             if($user = UserModel::getSession() != null){
                 $user = UserModel::getSession();

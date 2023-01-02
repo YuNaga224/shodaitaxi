@@ -7,10 +7,16 @@ use model\UserModel;
 use lib\Msg;
 
 function get() {
+    //ログインを要求
     Auth::requireLogin();
+    //グループへの参加を要求
+    CarpoolModel::requireParticipate();
+    //sessionから情報を取得
     $user = UserModel::getSession();
     $carpool = CarpoolModel::getSession();
-    if($user->relate_carpool === $carpool->rep_id) {
+
+    //ユーザーがグループに紐づいている場合の処理
+    if($user->relate_carpool === $carpool->id) {
     
         // require_once SOURCE_BASE . "libs/chat-server.php";
         redirect("ajax/meet.php?carpool_id=" . $carpool->id);

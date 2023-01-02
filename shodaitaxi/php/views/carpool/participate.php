@@ -90,7 +90,7 @@ function index($fetchedCarpool)
         <?php else: ?>
             <div>
                 <div class="mt-3 d-flex justify-content-between">
-                <?php if($carpool->rep_id === $user->id): ?>
+                <?php if($user->user_num === 1): ?>
                     <form action="<?php the_url("carpool/dissolution"); ?>" method="POST">
                         <input type="submit" class="btn btn-danger" value="グループを解散">
                     </form>

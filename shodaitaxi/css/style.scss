@@ -21,7 +21,21 @@ body{
 }
 
 .mymessage{
-  background-color: #ff4136;
-  color: white;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: #FF6E31;
+}
+
+.othermessage{
+  border-top-left-radius: 0px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.chat-bg{
+  background-color: #DDFFDD;
 }
 
