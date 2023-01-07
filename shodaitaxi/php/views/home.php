@@ -63,12 +63,12 @@ function index($requested_carpools,$carpool_list)
                 <h1 class="h4 mt-3">選択中の日時での<br>募集はありません</h1>
                 <h2 class="h4">新規募集から</h2>
                 <h3 class="h4">メンバーを集めましょう！</h3>
-                <a href="<?php the_url('carpool/newcarpool')?>" class="btn btn-info mt-3 px-5 mb-3">新規募集</a>
+                <a href="<?php the_url('carpool/newcarpool')?>" class="btn mt-3 px-5 mb-3 orange-btn">新規募集</a>
             </div>
         <?php endif; ?>
         <?php if($participate_flg): ?>
             <div class="d-flex justify-content-center mb-3">
-                <a href="<?php the_url("ajax/meet.php?carpool_id=" . $carpool->id); ?>" class="btn btn-info">参加中のグループへ移動</a>
+                <a href="<?php the_url("ajax/meet.php?carpool_id=" . $carpool->id); ?>" class="btn orange-btn">参加中のグループへ移動</a>
             </div>
             <div class="text-center mb-4">
                 <img src="<?php echo BASE_IMAGE_PATH;?>shodaitaxi_logo.png" width="100" alt="商大タクシーロゴ">
@@ -137,12 +137,12 @@ function index($requested_carpools,$carpool_list)
                     </select>
                 </div>
                 <div class="d-flex align-items-center justify-content-center">
-                <input type="submit" value="検索" class="btn btn-primary shadow-sm">
+                <input type="submit" value="検索" class="btn btn-info shadow-sm">
             </div>
         </form>
     </ul> 
     <div class="d-flex justify-content-center">
-        <a href="<?php the_url('carpool/newcarpool')?>" class="btn btn-info mt-1 px-5 mb-3">新規募集</a>
+        <a href="<?php the_url('carpool/newcarpool')?>" class="btn orange-btn mt-1 px-5 mb-3">新規募集</a>
 
     </div>
     
