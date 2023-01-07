@@ -30,18 +30,28 @@ class DataSource {
     private $sqlResult;
     public const CLS = 'cls';
 
+
     public function __construct($host = 'aws-and-infra-web.ctatrguvwcnx.ap-northeast-1.rds.amazonaws.com', $port = '3306', $dbName = 'shodaitaxi', $username = 'shodaitaxi_dev', $password = 'shodai1121') {
         $dsn = "mysql:host={$host};port={$port};dbname={$dbName};";
         $this->conn = PDOSingleton::getInstance($dsn,$username,$password);
 
     }
 
+    //最後に追加したデータのidを取得する
+    public function getLastInsertId(){
+        return $this->conn->lastInsertId();
+    }
+
+    //セレクト文（配列で取り出す）
     public function select($sql = "", $params = [], $type = '', $cls = '') {
         $stmt = $this->executeSql($sql,$params);
 
         if($type === static::CLS) {
+            //classで取得
             return $stmt->fetchAll(PDO::FETCH_CLASS,$cls);
 
+        }elseif($type === 'asc'){
+            return $stmt;
         }else {
 
             return $stmt->fetchAll();
@@ -49,12 +59,14 @@ class DataSource {
         }
     }
 
+
     public function execute($sql = "",$params=[]) {
 
         $this->executeSql($sql,$params);
         return $this->sqlResult;
     }
 
+    //一つの要素のみを取り出す
     public function selectOne($sql = "",$params = [],$type = '',$cls = '') {
 
         $result = $this->select($sql,$params,$type,$cls);
@@ -76,6 +88,7 @@ class DataSource {
         $this->conn->rollback();
     }
 
+
     private function executeSql($sql,$params) {
 
         $stmt = $this->conn->prepare($sql);
@@ -83,4 +96,6 @@ class DataSource {
         return $stmt;
 
     }
+
+
 }

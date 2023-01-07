@@ -8,13 +8,13 @@ use model\UserModel;
 function index($fetchedCarpool)
 {
     // var_dump($fetchedCarpool);
+    $participate_count = 1;
     $user = UserModel::getSession();
     $carpool = CarpoolModel::getSession();
     // var_dump($user);
     
 ?>
-    <h1 class="h4 d-flex justify-content-center mb-1 bg-white rounded p-3 mb-2"><?php echo $fetchedCarpool->selected_date ?> <?php echo $fetchedCarpool->selected_jr ?>のグループです</h1>
-    <h1 class="h5 d-flex justify-content-center mb-3">メンバーが集まるのを待っています</h1>
+    <h1 class="h5 d-flex justify-content-center mb-1 bg-white rounded p-3 mb-3 carpool-card"><?php echo $fetchedCarpool->selected_date ?> <?php echo $fetchedCarpool->selected_jr ?>のグループです</h1>
     <div class="row">
         <div class="col-6">
             <div class="card">
@@ -31,7 +31,7 @@ function index($fetchedCarpool)
                     </div>
                 </div>
         </div>
-            <?php else : ?>
+            <?php else : $participate_count = 2;?>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title h6 md-h5"><?php echo $fetchedCarpool->user_2 ?></h4>
@@ -47,7 +47,7 @@ function index($fetchedCarpool)
                     </div>
                 </div>
         </div>
-            <?php else : ?>
+            <?php else : $participate_count = 3;?>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title h6 md-h5"><?php echo $fetchedCarpool->user_3 ?></h4>
@@ -81,7 +81,7 @@ function index($fetchedCarpool)
                     </div>
                     <div>
                         <form action="<?php echo CURRENT_URI ?>" method="POST">
-                            <input type="submit" value="参加" class="btn btn-primary shadow-sm">
+                            <input type="submit" value="参加" class="btn orange-btn shadow-sm">
                         </form>
                     </div>
                 </div>
@@ -89,7 +89,7 @@ function index($fetchedCarpool)
         <?php else: ?>
             <div>
                 <div class="mt-3 d-flex justify-content-between">
-                <?php if($carpool->rep_id === $user->id): ?>
+                <?php if($user->user_num === 1): ?>
                     <form action="<?php the_url("carpool/dissolution"); ?>" method="POST">
                         <input type="submit" class="btn btn-danger" value="グループを解散">
                     </form>
@@ -98,14 +98,13 @@ function index($fetchedCarpool)
                         <input type="submit" class="btn btn-danger" value="グループを抜ける">
                     </form>
                 <?php endif; ?>
-                    <button class="btn btn-info shadow-sm px-5" onclick="reload()">更新する</button>
+                    <a href="<?php the_url('ajax/meet.php?carpool_id=' . $carpool->id); ?>" class="btn btn-info shadow-sm px-5">チャットへ</a>
                 </div>
-                <a href="<?php the_url('ajax/meet.php?carpool_id=' . $carpool->id); ?>" class="d-flex justify-content-center mt-3">チャットへ</a>
-            <script>
-                function reload(){
-                    location.reload();
-                }
-            </script>
+                
+                <div class="d-flex justify-content-center mt-3">
+                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="<?php echo '🔶募集中！！🔶'."\n".$carpool->selected_date.$carpool->selected_jr.'のグループです'."\n".'現在参加者数：'. $participate_count .'/4人'."\n".'🚕💨💨💨💨💨'."\n".'下のリンクから参加してください🔽';?>" data-via="shodaitaxi" data-hashtags="商大タクシー" data-related="" data-lang="ja" data-show-count="false">ツイート</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+                </div>
         <?php endif; ?>
         </div>
             

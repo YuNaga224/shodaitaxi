@@ -6,6 +6,7 @@ use model\CarpoolModel;
 
 class CarpoolQuery {
 
+    //carpoolテーブルからレコードを全件取得
     public static function fetchRecruitCarpools() {
 
         $db = new DataSource;
@@ -15,29 +16,37 @@ class CarpoolQuery {
         return $result;
     }
 
+    //userと紐づいたcarpoolテーブルのレコードを取得
     public static function fetchByUserId($user) {
         $db = new DataSource;
-        $sql = 'select * from carpool where rep_id = :relate_carpool';
+        $sql = 'select * from carpool where id = :relate_carpool';
         $result = $db->selectOne($sql,[
-            ':relate_carpool' => $user->relate_carpool,
+            ':relate_carpool' => (int)$user->relate_carpool,
         ],DataSource::CLS, CarpoolModel::class);
         return $result;
     }
 
+    //carpoolテーブルに新たなレコードを挿入して、そのレコードを返り値とする関数
     public static function createCarpool($carpool,$user) {
 
         $db = new DataSource;
+        
+        $sql = 'insert into carpool(user_1,selected_date,selected_jr) values (:nickname,:selected_date,:selected_jr)';
 
-        $sql = 'insert into carpool(rep_id,user_1,selected_date,selected_jr) values (:user_id,:nickname,:selected_date,:selected_jr)';
-
-        return $db->execute($sql, [
-            ':user_id' => $user->id,
+        $db->execute($sql, [
             ':nickname' => $user->nickname,
             ':selected_date' => $carpool->selected_date,
             ':selected_jr' => $carpool->selected_jr
         ]);
+        //最後に挿入した値のidを取得
+        $last_id = $db->getLastInsertId();
+        $sql = "select * from carpool where id = :id";
+        return $db->selectOne($sql,[
+            ':id' => $last_id
+        ],DataSource::CLS, CarpoolModel::class);
     }
 
+    //carpoolテーブルにユーザーのnicknameを登録
     public static function participateCarpool($carpool,$user) {
 
         $db = new DataSource;
@@ -56,6 +65,7 @@ class CarpoolQuery {
         ]);
     }
 
+    //指定されたidのcarpoolレコードを削除
     public static function deleteRecord($dump_carpool){
         $db = new DataSource;
         $sql = 'delete from carpool where id = :id';
@@ -64,6 +74,7 @@ class CarpoolQuery {
         ]);
     }
 
+    //指定されたidのレコードを取得
     public static function fetchById($carpool) {
         $db = new DataSource;
         $sql = 'select * from carpool where id = :id';
@@ -75,6 +86,7 @@ class CarpoolQuery {
         return $result;
     }
 
+    //グループから抜けたユーザーのnicknameを削除
     public static function clearUser($carpool,$user) {
         $db = new DataSource;
         $sql = "";

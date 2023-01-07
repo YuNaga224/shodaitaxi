@@ -5,6 +5,7 @@ use db\DataSource;
 use model\UserModel;
 
 class UserQuery {
+    //idを指定してユーザーを取得
     public static function fetchById($id) {
         $db = new DataSource;
         $sql = 'select * from users where id = :id';
@@ -15,6 +16,7 @@ class UserQuery {
         return $result;
     }
 
+    //新規ユーザーを登録
     public static function insert($user) {
 
         $db = new DataSource;
@@ -29,17 +31,27 @@ class UserQuery {
         ]);
     }
 
-    public static function repRelate($user) {
+    public static function updatePwd($user) {
         $db = new DataSource;
-        $sql = 'update users set relate_carpool = :rep_id where id = :id';
-        $rep_user = $user->id;
+        $sql = 'update users set pwd = :pwd where id = :id';
+
+        $user->pwd = password_hash($user->pwd,PASSWORD_DEFAULT);
+
         return $db->execute($sql,[
-            ':rep_id' => $rep_user,
+            ':pwd' => $user->pwd,
             ':id' => $user->id
         ]);
-
     }
 
+    public static function destroyUser($user) {
+        $db = new DataSource;
+        $sql = 'delete from users where id = :id';
+        return $db->execute($sql,[
+            ':id' => $user->id
+        ]);
+    }
+
+    //ユーザーに参加番号を付与
     public static function userNum($user,$carpool) {
         $db = new DataSource;
         $sql = '';
@@ -63,15 +75,17 @@ class UserQuery {
         return $user;
     }
 
+    //グループ参加ユーザーをcarpoolとidで紐づける
     public static function updateRelate($user) {
         $db = new DataSource;
         $sql = 'update users set relate_carpool = :relate_carpool where id = :id';
         return $db->execute($sql,[
-            ':relate_carpool' => $user->relate_carpool,
+            ':relate_carpool' => (string)$user->relate_carpool,
             ':id' => $user->id
         ]);
     }
 
+    //ユーザーとcarpoolの紐づけを解消
     public static function clearRelate($user) {
         $db = new DataSource;
         $sql = 'update users set relate_carpool = "none" where id = :id';
@@ -80,10 +94,21 @@ class UserQuery {
         ]);
     }
 
+    //ユーザーの参加番号をリセット
     public static function clearUserNum($user) {
         $db = new DataSource;
         $sql = 'update users set user_num = 0 where id = :id';
         return $db->execute($sql,[
+            ':id' => $user->id
+        ]);
+    }
+
+    public static function updateProfile($user) {
+        $db = new DataSource;
+        $sql = 'update users set nickname = :nickname , grade = :grade where id = :id';
+        return $db->execute($sql,[
+            ':nickname' => $user->nickname,
+            ':grade' => $user->grade,
             ':id' => $user->id
         ]);
     }

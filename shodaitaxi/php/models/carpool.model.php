@@ -5,9 +5,8 @@ use db\CarpoolQuery;
 use lib\Msg;
 use db\UserQuery;
 class CarpoolModel extends AbstractModel {
-
+    
     public int $id;
-    public string $rep_id;
     public string $user_1 = "EHG23hNRVe";
     public string $user_2 = "EHG23hNRVe";
     public string $user_3 = "EHG23hNRVe";
@@ -17,17 +16,18 @@ class CarpoolModel extends AbstractModel {
 
     protected static $SESSION_NAME = '_carpool';
 
+    //ユーザーがグループに参加中かどうかを判定する関数
+    //返り値はbool
+    public static function isParticipate($user) {
 
-    public static function isParticipate() {
-        $user = UserModel::getSession();
-
-        if(!$user->relate_carpool === 'none') {
+        if($user->relate_carpool != 'none') {
             return true;
         }else {
             return false;
         }
     }
 
+    //この関数は修正が必要
     public static function isMembersReady($carpool) {
         if(empty($carpool)){
             Msg::push(Msg::ERROR, 'グループが解散されました');
@@ -52,6 +52,15 @@ class CarpoolModel extends AbstractModel {
             Msg::push(Msg::INFO,'メンバーが全員揃いました！');
         }else {
             return;
+        }
+    }
+
+    //ユーザーがグループに参加していなかった場合ホーム画面にリダイレクトする関数
+    public static function requireParticipate() {
+        $user = UserModel::getSession();
+        if(!static::isParticipate($user)){
+            Msg::push(Msg::ERROR, 'グループに参加していません');
+            redirect(GO_HOME);
         }
     }
 

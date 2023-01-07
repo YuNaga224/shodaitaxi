@@ -19,11 +19,13 @@ use db\CarpoolQuery;
 use model\CarpoolModel;
 use model\UserModel;
 use lib\Auth;
-use lib\Msg;
+
 session_start();
 $user = UserModel::getSession();
 $carpool = CarpoolModel::getSession();
+//ログイン・グループへの参加を要求
 Auth::requireLogin();
+CarpoolModel::requireParticipate();
 
 ?>
 <!DOCTYPE html>
@@ -41,38 +43,33 @@ Auth::requireLogin();
     <link rel="stylesheet" href="<?php echo BASE_CSS_PATH ?>style.css">
     <title>商大タクシー</title>
 </head>
-<body>
+<body class="chat-bg">
 <div id="container">
     <header class="sticky-top bg-white mt-0">
         <nav class="d-flex justify-content-around align-items-center py-2 p-1">
 
             <form class="" action="<?php the_url('carpool/done'); ?>" method="POST">
-                <input type="submit"  class="btn btn-danger" value="タクシーに乗りました">
+                <input type="submit"  class="btn participate-btn" value="タクシーに乗りました">
             </form>
-            
             <a href="<?php the_url('carpool/participate?carpool_id=' . $carpool->id); ?>" class="btn btn-info">グループ管理</a>
 
-
         </nav>
+        <div class="d-flex justify-content-center align-items-center">
+            <h1 class="h6" id="member-infomation">現在の参加者数は1/4人です</h1>
+        </div>
     </header>
     <div class="container">
-        <div class="d-flex justify-content-center align-items-center">
 
-            <h1 class="h6" id="member-infomation">現在の参加者数は1/4人です</h1>
+        <div id="all_show_result" class="mt-3 mb-5"></div>
 
+        <div class="add_chat" class="row text-align-center mt-5">
+            <form class="form-inline fixed-bottom bg-white send-form">
+                <div class="col-1"></div>
+                <input type="text" id="body" class="col-8 form-control chat-body" maxlength="50" required>      
 
-
-        </div>
-        <div id="all_show_result" class="mt-5"></div>
-        </div>
-        <div class="add_chat" class="row d-flex align-items-center">
-            <div class="d-flex justify-content-center">
-                <input type="text" id="body" class="col-10 form-control chat-body" maxlength="50" required>
-            </div>
-            <div id="add_result"></div>
-            <div class="d-flex justify-content-center text-align-center">
-                <button id="ajax_add" class="btn btn-info mb-3 send-btn">送信</button>  
-            </div>
+                <button id="ajax_add" class="col-3 btn send-btn font-small">送信</button>  
+        
+            </form>
         </div>
     </div>
 

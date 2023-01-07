@@ -8,8 +8,10 @@ class UserModel extends AbstractModel {
     public string $id;
     public string $pwd;
     public string $nickname;
-    public string $relate_carpool;
+    public string $relate_carpool = "none";
     public int $user_num = 0;
+    public string $grade = '未選択';
+    
 
     protected static $SESSION_NAME = '_user';
 

@@ -4,7 +4,7 @@ namespace partials;
 function carpool_list_item($carpool,$participate_url) {
 
 ?>
-    <li class="topic row bg-white shadow-sm mb-3 rounded p-3">
+    <li class="topic row bg-white shadow-sm mb-3 carpool-card p-3">
         <div>
            <p><?php echo $carpool->selected_date; ?>/<?php echo $carpool->selected_jr; ?>のグループです</p>
         </div>
@@ -65,7 +65,7 @@ function carpool_list_item($carpool,$participate_url) {
             <?php endif; ?> 
         <div class="col-auto mx-auto mt-2">
             <div class="text-center row">
-                <a href="<?php echo $participate_url ?>" class="btn btn-primary shadow-sm">参加する</a>
+                <a href="<?php echo $participate_url ?>" class="participate-btn btn shadow-sm">参加する</a>
             </div>
         </div>
     </li>

@@ -1,9 +1,10 @@
 function getAllData(){
-  num = 1;
+  // グループ内のユーザー数をカウントする変数
+  user_num = 1;
   $.ajax({
       // 通信先ファイル名
       url: "ajax-chat-log.php",
-      // 通信が成功した時
+    
   })
   .then(
 
@@ -11,25 +12,33 @@ function getAllData(){
           // 取得したレコードをeachで順次取り出す
           $('#all_show_result').html('<div class="d-none"' + data[0]['body'] + "</div>");
           $.each(data, function(key, value){
-              // #all_show_result内にappendで追記していく
+              //メッセージが空じゃないときにログに追加する
               if(value.body != ""){
+                //新しくメンバーが参加したとき
                 if(value.nickname === '[参加お知らせ]'){
-                  $('#all_show_result').append('<div class="">' + '<p class="w-80 bg-light text-black mb-3 p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
-                  num += 1;
+                  $('#all_show_result').append('<div class="">' + '<p class="text-center w-80 text-white mb-3 p-2 text-info mx-4 rounded">' + value.body + "</p>" + "</div>");
+                  user_num += 1;
+                  //メンバーがグループを抜けたとき
                 }else if(value.nickname === '[辞退お知らせ]'){
-                  $('#all_show_result').append('<div class="">' + '<p class="w-80 bg-light text-black mb-3 p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
-                  num -= 1;
+                  $('#all_show_result').append('<div class="">' + '<p class="text-center w-80 text-white mb-3 text-danger p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
+                  user_num -= 1;
                 }else if(value.nickname === '[作成お知らせ]'){
-                  $('#all_show_result').append('<div class="">' + '<p class="w-80 bg-light text-black mb-3 p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
-                }else{
-                  
-                  $('#all_show_result').append('<div class="">' + value.nickname + '<p class="w-80 bg-primary text-white mb-3 p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
+                  //グループ作成時
+                  $('#all_show_result').append('<div class="">' + '<p class="text-center w-80 text-white mb-3 text-info p-2 mx-4 rounded">' + value.body + "</p>" + "</div>");
+                  //メッセージの送信主がcurrentUserのとき
+                }else if(value.current_user === value.user_id){
+
+                  $('#all_show_result').append('<div class="text-right">' + value.nickname + '<p class="text-left ml-auto w-50 text-white mb-3 p-2 mx-4 mymessage pl-3">' + value.body + "</p>" + "</div>");
+                  //別のユーザーのとき
+                }else {
+                  $('#all_show_result').append('<div class="">' + value.nickname + '<p class="bg-white w-50 text-black mb-3 p-2 mx-4 othermessage pl-3">' + value.body + "</p>" + "</div>");
                 }
 
               }
   
           });
-          $('#member-infomation').html('現在の参加者数は' + num + '/4' + '人です');
+          //グループ内のユーザー数を表示
+          $('#member-infomation').html('現在の参加者数は' + user_num + '/4' + '人です');
       },
       function(){
 
@@ -37,32 +46,32 @@ function getAllData(){
   );
 }
 
+//一秒ごとにロード
 $(document).ready(function() {
   getAllData();
   setInterval('getAllData()',1000);
 });
 
+// チャットメッセージを送信
 $('#ajax_add').on('click',function(){
-  // 確認メッセージを表示
-  // OKならtrue,キャンセルならfalseが代入される
   $.ajax({
-      // 送信方法
+      
       type: "POST",
-      // 送信先ファイル名
+      
       url: "ajax-chat-add.php",
-      // 受け取りデータの種類
+      
       datatype: "json",
-      // 送信データ
+      
       data: {
-          // #nameと#priceのvalueをセット
+          
           "body" : $('#body').val()
       },
-      // 通信が成功した時
+      
       success: function(data) {
         $('#body').val("")
       },
 
-      // 通信が失敗した時
+      
       error: function(data) {
           console.log("通信失敗");
           console.log(data);
