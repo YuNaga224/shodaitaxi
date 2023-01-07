@@ -74,6 +74,87 @@ class Auth {
         return $is_success;
     }
 
+    //passwordをリセットするメソッド
+    public static function resetPassword($id,$current_pwd,$new_pwd,$onemore_pwd) {
+        try{
+            if(!(UserModel::validatePwd($current_pwd)
+            *Usermodel::validatePwd($new_pwd)
+            *UserModel::validatePwd($onemore_pwd))) {
+             return false;
+            }
+
+            $is_success_1 = false;
+            $is_success_2 = false;
+            $is_success = false;
+            $user = UserQuery::fetchById($id);
+
+            if(!empty($user)){
+                if(password_verify($current_pwd,$user->pwd)){
+                    $is_success_1 = true;
+                }else {
+                    Msg::push(Msg::ERROR,'現在のパスワードが間違っています');
+                    $is_success_1 = false;
+                }
+                if($new_pwd === $onemore_pwd) {
+                    $is_success_2 = true;
+                }else{
+                    Msg::push(Msg::ERROR,'新しいパスワードが一致しません');
+                    $is_success_2 = false;
+                }
+
+                if($is_success_1 && $is_success_2) {
+                    $user->pwd = $new_pwd;
+                    $is_success = UserQuery::updatePwd($user);
+                    UserModel::setSession($user);
+                }
+
+            }
+
+        }catch(Throwable $e) {
+            $is_success = false;
+            Msg::push(Msg::ERROR,'パスワードリセットでエラーが発生しました。時間をおいて再度お試しください');
+        }
+        return $is_success;
+    }
+
+    public static function destroy($id,$pwd,$onemore_pwd) {
+        try{
+            if(!(UserModel::validatePwd($pwd)
+                *UserModel::validatePwd($onemore_pwd))) {
+                    return false;
+                }
+
+                $is_success_1 = false;
+                $is_success_2 = false;
+                $is_success = false;
+                $user = UserQuery::fetchById($id);
+
+                if(!empty($user)) {
+                    if(password_verify($pwd, $user->pwd)) {
+                        $is_success_1 = true;
+                    }else {
+                        Msg::push(Msg::ERROR, 'パスワードが間違っています');
+                        $is_success_1 = false;
+                    }
+                    if($pwd === $onemore_pwd) {
+                        $is_success_2 = true;
+                    }else {
+                        Msg::push(Msg::ERROR,'パスワードが一致しません');
+                        $is_success_2 = false;
+                    }
+                    if($is_success_1 && $is_success_2) {
+                        $is_success = UserQuery::destroyUser($user);
+                        UserModel::clearSession();
+                    }
+                }
+
+        }catch(Throwable $e) {
+            $is_success = false;
+            Msg::push(Msg::ERROR,'アカウント削除でエラーが発生しました。時間をおいて再度お試しください');
+        }
+        return $is_success;
+    }
+
     public static function isLogin() {
         try{
 

@@ -14,8 +14,7 @@ function index($fetchedCarpool)
     // var_dump($user);
     
 ?>
-    <h1 class="h4 d-flex justify-content-center mb-1 bg-white rounded p-3 mb-2"><?php echo $fetchedCarpool->selected_date ?> <?php echo $fetchedCarpool->selected_jr ?>のグループです</h1>
-    <h1 class="h5 d-flex justify-content-center mb-3">メンバーが集まるのを待っています</h1>
+    <h1 class="h5 d-flex justify-content-center mb-1 bg-white rounded p-3 mb-3 carpool-card"><?php echo $fetchedCarpool->selected_date ?> <?php echo $fetchedCarpool->selected_jr ?>のグループです</h1>
     <div class="row">
         <div class="col-6">
             <div class="card">
