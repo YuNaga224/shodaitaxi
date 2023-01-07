@@ -27,20 +27,35 @@ function header() {
     </head>
     <body>
         <div id="container">
+            <div id="g-nav">
+                <ul>
+                    <li><a class="" href="<?php the_url('editprofile');?>">プロフィール編集</a></li>
+                    <li><a href="<?php the_url('resetpassword');?>">パスワード変更</a></li>
+                    <li><a class="text-danger" href="<?php the_url('logout')?>">ログアウト</a></li>
+                    <li><a class="btn btn-danger text-white" href="<?php the_url('userdestroy')?>">アカウント削除</a></li>
+                </ul>
+            </div>
             <header class="container my-2">
-                <nav class="row align-items-center py-2">
-                    <a href="<?php the_url('home')?>" class="col-md d-flex align-items-center mb-3 mb-md-0">
+                <nav class="row align-items-center py-2 justify-content-between">
+                    <a href="<?php the_url('home')?>" class="logo col-auto d-flex align-items-center mb-3 mb-md-0">
                         <img width="60" class="mr-2" src="<?php echo BASE_IMAGE_PATH;?>shodaitaxi_logo.png" alt="商大タクシーロゴ">
                         <span class="h2 font-weight-bold mb-0">商大TAXI</span>
                     </a>
-                    <div class="col-md-auto">
+                    
                         <?php if(Auth::isLogin()) :?>
-                            <a href="<?php the_url('logout')?>">ログアウト</a>
+                        <div class="col-auto">
+                            <button class="openbtn">
+                                <span class="burger-inline"></span>
+                                <span class="burger-inline"></span>
+                                <span class="burger-inline"></span>
+                            </button>
+                        </div>
                         <?php else: ?>
+                        <div class="col-md-auto">
                             <a href="<?php the_url('register')?>" class="btn btn-primary">登録</a>
                             <a href="<?php the_url('login')?>">ログイン</a>
+                        </div>
                         <?php endif; ?>
-                    </div>
                 </nav>
             </header>
             <main class="container py-3">

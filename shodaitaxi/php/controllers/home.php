@@ -3,6 +3,7 @@ namespace controller\home;
 use db\CarpoolQuery;
 use db\ChatQuery;
 use db\UserQuery;
+use lib\Auth;
 use model\CarpoolModel;
 use model\UserModel;
 
@@ -13,8 +14,14 @@ function get() {
     $requested_carpools = [];
     //現在時刻以降のcarpoolを格納するlist
     $carpool_list = [];
+    if(Auth::isLogin()){
+        $user = UserModel::getSession();
+        $user = UserQuery::fetchById($user->id);
+        UserModel::setSession($user);
+    }
+    
     foreach($carpools as $carpool) {
-        
+
         if(date('m月d日') > date($carpool->selected_date)){
             if($user = UserModel::getSession() != null){
                 $user = UserModel::getSession();

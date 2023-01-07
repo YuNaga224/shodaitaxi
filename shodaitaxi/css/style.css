@@ -9249,3 +9249,131 @@ body {
 .chat-bg{
   background-color: #D3DEF1;
 }
+
+.chat-body {
+  background-color: #F0F0E0;
+  border-radius: 20px;
+}
+
+#g-nav{
+  position:fixed;
+  z-index:99;
+  top:0;
+  right:-120%;
+  width:100%;
+    height:100vh;
+  background-color: #FFFF;
+  transition: all 0.6s;
+}
+
+#g-nav.panelopen{
+  right:0;
+  overflow: hidden;
+}
+
+#g-nav ul{
+  position: absolute;
+  z-index:99;
+  padding: 0;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  
+}
+
+#g-nav li{
+  list-style:none;
+    text-align:center;
+    margin-bottom: 20px;
+}
+
+#g-nav li a{
+  color: #333;
+  text-decoration: none;
+  padding:10px;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing:0.1em;
+  font-weight: bold;
+  
+}
+
+.openbtn {
+    position:relative;
+    z-index:999;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    outline: none !important;
+
+}
+
+.openbtn.active .burger-inline:nth-child(1){
+  transition-delay: 70ms;
+  transform: translateY(11px) rotate(135deg);
+  
+}
+.openbtn.active .burger-inline:nth-child(2){
+  transition-delay: 0s;
+  transform: translateY(-18px) scaleX(0);
+  
+}
+.openbtn.active .burger-inline:nth-child(3){
+  transition-delay: 140ms;
+  transform: translateY(-11px) rotate(-135deg);
+  
+}
+
+.burger-inline {
+  background-color: #95999c;
+  width: 35px;
+  height: 2px;
+  display: block;
+  margin-top: 9px;
+
+  transition: transform 0.7s;
+}
+
+body.overflow-hidden {
+  overflow: hidden;
+}
+
+.logo{
+  position:relative;
+  z-index:999;
+}
+
+.carpool-card {
+  border-radius: 45px;
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
+  
+  background: hsl(0 0% 100%);
+  color: hsl(200 50% 20%);
+  line-height: 1.5;
+  font-weight: 300;
+  display: flex;
+  place-items: center;
+  text-align: center;
+  padding: 3ch;
+  border-radius: 2ch;
+  border: 1px solid hsl(0 0% 83%);
+
+}
+
+.participate-btn {
+  border-radius: 100vh;
+  color: #fff;
+  background: #f56500;
+}
+
+.send-btn {
+  background: #f56500;
+  border-radius: 5px;
+  color: white;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.send_form {
+  height: 100px;
+}

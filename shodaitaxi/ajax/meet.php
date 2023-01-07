@@ -49,7 +49,7 @@ CarpoolModel::requireParticipate();
         <nav class="d-flex justify-content-around align-items-center py-2 p-1">
 
             <form class="" action="<?php the_url('carpool/done'); ?>" method="POST">
-                <input type="submit"  class="btn btn-primary" value="タクシーに乗りました">
+                <input type="submit"  class="btn participate-btn" value="タクシーに乗りました">
             </form>
             <a href="<?php the_url('carpool/participate?carpool_id=' . $carpool->id); ?>" class="btn btn-info">グループ管理</a>
 
@@ -63,10 +63,11 @@ CarpoolModel::requireParticipate();
         <div id="all_show_result" class="mt-3 mb-5"></div>
 
         <div class="add_chat" class="row text-align-center mt-5">
-            <form class="form-inline fixed-bottom">
-                <input type="text" id="body" class="col-9 form-control chat-body" maxlength="50" required>      
+            <form class="form-inline fixed-bottom bg-white send-form">
+                <div class="col-1"></div>
+                <input type="text" id="body" class="col-8 form-control chat-body" maxlength="50" required>      
 
-                <button id="ajax_add" class="col-3 btn btn-info send-btn font-small">送信</button>  
+                <button id="ajax_add" class="col-3 btn send-btn font-small">送信</button>  
         
             </form>
         </div>

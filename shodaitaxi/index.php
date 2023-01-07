@@ -33,7 +33,9 @@ require_once SOURCE_BASE . 'views/register.php';
 require_once SOURCE_BASE . 'views/carpool/newcarpool.php';
 require_once SOURCE_BASE . 'views/carpool/participate.php';
 require_once SOURCE_BASE . 'views/carpool/done.php';
-
+require_once SOURCE_BASE . 'views/editprofile.php';
+require_once SOURCE_BASE . 'views/resetpassword.php';
+require_once SOURCE_BASE . 'views/userdestroy.php';
 
 
 use function lib\route;

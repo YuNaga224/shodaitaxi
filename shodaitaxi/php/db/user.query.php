@@ -31,6 +31,26 @@ class UserQuery {
         ]);
     }
 
+    public static function updatePwd($user) {
+        $db = new DataSource;
+        $sql = 'update users set pwd = :pwd where id = :id';
+
+        $user->pwd = password_hash($user->pwd,PASSWORD_DEFAULT);
+
+        return $db->execute($sql,[
+            ':pwd' => $user->pwd,
+            ':id' => $user->id
+        ]);
+    }
+
+    public static function destroyUser($user) {
+        $db = new DataSource;
+        $sql = 'delete from users where id = :id';
+        return $db->execute($sql,[
+            ':id' => $user->id
+        ]);
+    }
+
     //ユーザーに参加番号を付与
     public static function userNum($user,$carpool) {
         $db = new DataSource;
@@ -79,6 +99,16 @@ class UserQuery {
         $db = new DataSource;
         $sql = 'update users set user_num = 0 where id = :id';
         return $db->execute($sql,[
+            ':id' => $user->id
+        ]);
+    }
+
+    public static function updateProfile($user) {
+        $db = new DataSource;
+        $sql = 'update users set nickname = :nickname , grade = :grade where id = :id';
+        return $db->execute($sql,[
+            ':nickname' => $user->nickname,
+            ':grade' => $user->grade,
             ':id' => $user->id
         ]);
     }
