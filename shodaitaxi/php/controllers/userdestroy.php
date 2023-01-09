@@ -18,7 +18,7 @@ function post() {
         Msg::push(Msg::INFO,'アカウントを削除しました');
         redirect(GO_HOME);
     }else{
-        redirect('destroyuser');
+        redirect('userdestroy');
     }
 }
 ?>

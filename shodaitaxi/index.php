@@ -7,6 +7,9 @@ require_once SOURCE_BASE . 'libs/router.php';
 require_once SOURCE_BASE . 'libs/helper.php';
 require_once SOURCE_BASE . 'libs/auth.php';
 
+//twitterOAuthを使用するためのファイル
+require_once SOURCE_BASE . 'vendor/autoload.php';
+
 //Model
 require_once SOURCE_BASE . 'models/abstract.model.php';
 require_once SOURCE_BASE . 'models/user.model.php';
@@ -36,6 +39,7 @@ require_once SOURCE_BASE . 'views/carpool/done.php';
 require_once SOURCE_BASE . 'views/editprofile.php';
 require_once SOURCE_BASE . 'views/resetpassword.php';
 require_once SOURCE_BASE . 'views/userdestroy.php';
+require_once SOURCE_BASE . 'views/twitter.php';
 
 
 use function lib\route;
