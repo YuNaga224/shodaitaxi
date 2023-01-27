@@ -17,7 +17,9 @@ function get() {
     if(Auth::isLogin()){
         $user = UserModel::getSession();
         $user = UserQuery::fetchById($user->id);
+        $carpool = CarpoolQuery::fetchByUserId($user);
         UserModel::setSession($user);
+        CarpoolModel::setSession($carpool);
     }
     
     foreach($carpools as $carpool) {
@@ -40,13 +42,15 @@ function get() {
         if($carpool->selected_date === get_param('date','',false) && $carpool->selected_jr === get_param('jr','',false)) {
             $requested_carpools[] = $carpool;
         }
-        if(date('m月d日') == date($carpool->selected_date) && date('H:i着') < date($carpool->selected_jr)) {
+        if(date('m月d日') == date($carpool->selected_date) && date('H:i着',strtotime("now -20 min")) < date($carpool->selected_jr)) {
             $carpool_list[] = $carpool;
         }
         if(date('m月d日') < date($carpool->selected_date)){
             $carpool_list[] = $carpool;
         }
     }  
+
+    
 
     \view\home\index($requested_carpools,$carpool_list);
 }

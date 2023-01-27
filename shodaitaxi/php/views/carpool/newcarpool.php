@@ -61,7 +61,7 @@ function index()
                     <a class="ml-3" href="<?php the_url('home'); ?>">戻る</a>
                 </div>
                 <div>
-                    <input type="submit" value="募集開始" class="btn btn-primary shadow-sm mr-3">
+                    <input type="submit" value="募集開始" class="btn orange-btn shadow-sm mr-3">
                 </div>
             </div>
         </form>

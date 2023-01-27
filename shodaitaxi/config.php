@@ -12,7 +12,5 @@ define('SOURCE_BASE', __DIR__ . '/php/');
 define('GO_HOME', 'home');
 define('GO_REFERER','referer');
 
-define('DEBUG',true);
+define('DEBUG',false);
 
-define('TWITTER_API_KEY','M6wqzs92hVUQwcZajWuDxzaHN');
-define('TWITTER_API_SECRET','PzqCfZ44u8CGdRGkm7kaSV6F7XCgy8ePDRNbRIxgLCc7h9o76A');
