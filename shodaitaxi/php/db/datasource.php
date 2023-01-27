@@ -31,7 +31,7 @@ class DataSource {
     public const CLS = 'cls';
 
 
-    public function __construct($host = 'aws-and-infra-web.ctatrguvwcnx.ap-northeast-1.rds.amazonaws.com', $port = '3306', $dbName = 'shodaitaxi', $username = 'shodaitaxi_dev', $password = 'shodai1121') {
+    public function __construct($host = 'localhost', $port = '8889', $dbName = 'shodaitaxi', $username = 'shodaitaxi_dev', $password = 'shodai1121') {
         $dsn = "mysql:host={$host};port={$port};dbname={$dbName};";
         $this->conn = PDOSingleton::getInstance($dsn,$username,$password);
 
