@@ -81,7 +81,7 @@ function index($fetchedCarpool)
                     </div>
                     <div>
                         <form action="<?php echo CURRENT_URI ?>" method="POST">
-                            <input type="submit" value="参加" class="btn btn-primary shadow-sm">
+                            <input type="submit" value="参加" class="btn orange-btn shadow-sm">
                         </form>
                     </div>
                 </div>

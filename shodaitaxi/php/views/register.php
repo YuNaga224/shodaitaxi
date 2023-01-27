@@ -1,7 +1,7 @@
 <?php 
 namespace view\register;
 
-function index() {
+function index($oauthurl) {
 ?>
 <h1 class="sr-only">アカウント作成</h1>
 <div class="mt-5">
@@ -35,7 +35,9 @@ function index() {
             </div>
 
         </form>
+
     </div>
+    <p class="alc"><a class="loginbtn lbt" href="<?php echo $oauthurl ?>"><i class="fab fa-twitter">Twitterでログイン</i></a></p>
 </div>
 <?php 
 }

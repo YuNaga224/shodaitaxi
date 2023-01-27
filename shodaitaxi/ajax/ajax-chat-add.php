@@ -1,7 +1,7 @@
 <?php
-require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
+require_once 'c:/MAMP/htdocs/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
 
-require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/config.php';
+require_once 'c:/MAMP/htdocs/shodaitaxiProject/shodaitaxi/config.php';
 
 require_once SOURCE_BASE . 'libs/helper.php';
 //Model

@@ -12,4 +12,5 @@ define('SOURCE_BASE', __DIR__ . '/php/');
 define('GO_HOME', 'home');
 define('GO_REFERER','referer');
 
-define('DEBUG',true);
+define('DEBUG',false);
+

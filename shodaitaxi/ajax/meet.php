@@ -2,7 +2,7 @@
 namespace view\carpool\meet;
 require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/php/db/datasource.php';
 
-require_once 'c:/mamp/htdocs/shodaitaxiProject/shodaitaxi/config.php';
+require_once 'c:/mamp/htdocsshodaitaxiProject/shodaitaxi/config.php';
 //Model
 require_once SOURCE_BASE . 'models/abstract.model.php';
 require_once SOURCE_BASE . 'models/user.model.php';
@@ -64,11 +64,11 @@ CarpoolModel::requireParticipate();
 
         <div class="add_chat" class="row text-align-center mt-5">
             <form class="form-inline fixed-bottom bg-white send-form">
-                <div class="col-1"></div>
-                <input type="text" id="body" class="col-8 form-control chat-body" maxlength="50" required>      
+                <div class="col-2"></div>
+                <input type="text" id="body" class="col-7 form-control chat-body" maxlength="50" required>      
 
-                <button id="ajax_add" class="col-3 btn send-btn font-small">送信</button>  
-        
+                <button id="ajax_add" class="col-1 btn send-btn font-small"><img class="rotate-icon" width="25" src="<?php echo BASE_IMAGE_PATH?>send-button.png"></button>  
+                <div class="col-2"></div>
             </form>
         </div>
     </div>
